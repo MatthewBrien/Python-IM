@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.5
+#!/usr/bin/env python2.7
 #client side of an instant messaging application, copied from a book that copied it from Liam Fraser or something
 
 import threading
@@ -14,7 +14,7 @@ import datetime
 
 gobject.threads_init()
 
-class MainWindow(gtk.window):
+class MainWindow(gtk.Window):
     def __init__(self):
         super(MainWindow, self).__init__()
         #create main controls
@@ -22,12 +22,13 @@ class MainWindow(gtk.window):
         vbox = gtk.VBox()
         hbox = gtk.HBox()
         self.username_label = gtk.Label()
+	send_button = gtk.Button("Send")
         self.text_entry = gtk.Entry()
         self.text_buffer = gtk.TextBuffer()
         text_view = gtk.TextView(self.text_buffer)
         #connect events
         self.connect("destroy",self.graceful_quit)
-        send_button.connect("clicked", self.send_message)
+	send_button.connect("clicked", self.send_message)
         #activate when user presses enter
         self.text_entry.connect("activate", self.send_message)
         #do layout why don't you
@@ -41,6 +42,7 @@ class MainWindow(gtk.window):
         self.show_all()
         #go through the configuration process
         self.configure()
+
     def ask_for_info(self, question):
         dialog = gtk.MessageDialog(parent = self,
             type = gtk.MESSAGE_QUESTION,
@@ -49,6 +51,7 @@ class MainWindow(gtk.window):
             buttons = gtk.BUTTONS_OK_CANCEL,
             message_format = question)
         entry = gtk.Entry()
+	entry.show()
         dialog.vbox.pack_end(entry)
         response = dialog.run()
         response_text = entry.get_text()
@@ -63,7 +66,7 @@ class MainWindow(gtk.window):
     #show a dialog box prompting the user for a server address followed by a port number
         server = self.ask_for_info("server_address:port")
     #regex to crudely match an IP address and port number
-        regex = re.search('^(\d+\.\d+\.\d+\.\d+):(\d+)$',server)
+        regex = re.search('^(\d+\.\d+\.\d+\.\d+):(\d+)$', server)
         address  = regex.group(1).strip()
         port = regex.group(2).strip()
 
@@ -146,7 +149,7 @@ class Networking():
             self.tidy_up()
         else:
             #tell the GTK thread to add some text when it is ready
-            goject.idle_add(self.window.add_text, data)
+            gobject.idle_add(self.window.add_text, data)
 
 if __name__ == "__main__":
     MainWindow()
