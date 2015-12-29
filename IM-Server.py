@@ -1,5 +1,4 @@
-#!/usr/bin/env python3.5
-
+#!/usr/bin/env python2.7
 import threading
 import socket
 import re
@@ -25,7 +24,7 @@ class Server():
             #listen for clients and create a new clientthre for each new client
             print "Listening for more clients"
             try:
-                (client_socket, clinet_address) = self.listener.accept()
+                (client_socket, client_address) = self.listener.accept()
             except socket.error:
                 sys.ext("Could not accept any more connections")
             self.client_sockets.append(client_socket)
