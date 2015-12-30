@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3.6
 #client side of an instant messaging application, copied from a book that copied it from Liam Fraser or something
 
 import threading
@@ -22,13 +22,13 @@ class MainWindow(gtk.Window):
         vbox = gtk.VBox()
         hbox = gtk.HBox()
         self.username_label = gtk.Label()
-	send_button = gtk.Button("Send")
+        send_button = gtk.Button("Send")
         self.text_entry = gtk.Entry()
         self.text_buffer = gtk.TextBuffer()
         text_view = gtk.TextView(self.text_buffer)
         #connect events
         self.connect("destroy",self.graceful_quit)
-	send_button.connect("clicked", self.send_message)
+        send_button.connect("clicked", self.send_message)
         #activate when user presses enter
         self.text_entry.connect("activate", self.send_message)
         #do layout why don't you
@@ -45,13 +45,13 @@ class MainWindow(gtk.Window):
 
     def ask_for_info(self, question):
         dialog = gtk.MessageDialog(parent = self,
-            type = gtk.MESSAGE_QUESTION,
-            flags = gtk.DIALOG_MODAL |
-            gtk.DIALOG_DESTROY_WITH_PARENT,
-            buttons = gtk.BUTTONS_OK_CANCEL,
-            message_format = question)
+        type = gtk.MESSAGE_QUESTION,
+        flags = gtk.DIALOG_MODAL |
+        gtk.DIALOG_DESTROY_WITH_PARENT,
+        buttons = gtk.BUTTONS_OK_CANCEL,
+        message_format = question)
         entry = gtk.Entry()
-	entry.show()
+        entry.show()
         dialog.vbox.pack_end(entry)
         response = dialog.run()
         response_text = entry.get_text()
